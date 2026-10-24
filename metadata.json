@@ -1,0 +1,6 @@
+{
+  "name": "NoteWise",
+  "description": "A student-first study notes prototype with automatic topic tagging, manual corrections, and keyword suggestions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

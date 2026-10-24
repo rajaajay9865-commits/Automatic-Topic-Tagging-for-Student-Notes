@@ -1,0 +1,44 @@
+[
+  {
+    "tag": "Algebra",
+    "description": "Equations, functions, variables, graphs, and mathematical relationships.",
+    "include": ["linear/quadratic equations", "functions", "solving for variables", "algebraic graphs"],
+    "exclude": ["arithmetic-only work", "statistics without algebra"]
+  },
+  {
+    "tag": "Biology",
+    "description": "Living organisms, cells, genetics, ecology, and life processes.",
+    "include": ["cells and membranes", "DNA and inheritance", "organisms", "ecology", "photosynthesis"],
+    "exclude": ["chemical reactions with no life-science context"]
+  },
+  {
+    "tag": "Chemistry",
+    "description": "Elements, matter, chemical reactions, bonding, and chemical calculations.",
+    "include": ["atoms and molecules", "reaction equations", "acids and bases", "bonding", "pH"],
+    "exclude": ["biological processes unless chemistry is substantively discussed"]
+  },
+  {
+    "tag": "Computer Science",
+    "description": "Programming, algorithms, data structures, and computing systems.",
+    "include": ["code and programming languages", "loops", "algorithms", "complexity", "data formats"],
+    "exclude": ["using a computer without learning computing concepts"]
+  },
+  {
+    "tag": "Physics",
+    "description": "Motion, forces, energy, waves, and physical laws.",
+    "include": ["Newton's laws", "mechanics", "energy", "forces", "physical units"],
+    "exclude": ["mathematical equations without a physical context"]
+  },
+  {
+    "tag": "History",
+    "description": "Past events, societies, chronology, historical sources, and interpretation.",
+    "include": ["historical periods", "causes and consequences", "primary sources", "historical evidence"],
+    "exclude": ["present-day events without historical analysis"]
+  },
+  {
+    "tag": "Writing",
+    "description": "Composition, argument structure, grammar, and writing techniques.",
+    "include": ["thesis statements", "essays", "claims and evidence", "composition"],
+    "exclude": ["notes that only mention writing without discussing the skill"]
+  }
+]

@@ -1,0 +1,31 @@
+id,title,text,gold_tags
+1,Linear equations: balancing both sides,"ALGEBRA — Linear equations. An equation stays balanced when the same operation is applied to both sides. Example: 3x + 5 = 20. Subtract 5: 3x = 15. Divide by 3: x = 5. Check by substitution.",Algebra
+2,Cell membranes and transport,"BIOLOGY — Cell membrane. The phospholipid bilayer is selectively permeable. Diffusion moves particles down a concentration gradient. Osmosis is diffusion of water across a partially permeable membrane.",Biology
+3,Balancing chemical equations,"CHEMISTRY — Conservation of mass. Atoms are conserved in a chemical reaction. Balance coefficients rather than changing subscripts. 2H2 + O2 -> 2H2O.",Chemistry
+4,Python loops and list iteration,"COMPUTER SCIENCE — for item in items: print(item). A for loop visits each element in an iterable. A while loop repeats while its condition is True. Watch for off-by-one errors in range().",Computer Science
+5,Newton's second law in practice,"PHYSICS — F = ma. Net force equals mass multiplied by acceleration. SI units: force in newtons, mass in kilograms, acceleration in metres per second squared.",Physics;Algebra
+6,The causes of the French Revolution,"HISTORY — 1789. Social inequality among the three estates, financial crisis and state debt, poor harvests, and Enlightenment ideas about popular sovereignty contributed to the revolution.",History
+7,Building a clear thesis statement,"WRITING — A strong thesis makes a specific, arguable claim and previews the reasoning. Avoid a topic-only statement. Support the argument with evidence.",Writing
+8,Quadratic graphs and the vertex,"ALGEBRA — For y = a(x - h)^2 + k, the vertex is (h, k) and the axis of symmetry is x = h. The sign of a controls whether a parabola opens up or down.",Algebra
+9,DNA genes and inheritance,"BIOLOGY — DNA stores inherited information. A gene is a section of DNA. Alleles are alternative forms of a gene. Genotype describes alleles; phenotype describes observable traits.",Biology
+10,Sorting algorithm comparison,"COMPUTER SCIENCE — Bubble sort swaps adjacent values and has average time complexity O(n^2). Merge sort splits and merges; it runs in O(n log n) time with O(n) extra space.",Computer Science;Algebra
+11,Energy conservation and pendulums,"PHYSICS — At the top of a swing, gravitational potential energy is greatest. As the pendulum descends, energy transfers into kinetic energy. Friction transfers energy to heat.",Physics
+12,Sources and evidence in history essays,"HISTORY + WRITING — Use provenance, context, and corroboration to assess a primary source. In an essay, make a claim, support it with evidence, and explain how the evidence answers the question.",History;Writing
+13,Acids bases and pH,"CHEMISTRY — The pH scale indicates acidity. A solution with pH below 7 is acidic; above 7 is basic. Neutralisation between an acid and a base can form salt and water.",Chemistry
+14,Short scratch note,"F = ma. Check units.",Physics;Algebra
+15,Code lab parsing CSV rows,"import csv. A DictReader parses CSV rows into keyed values. A parser handles quoted fields more reliably than splitting a line on commas.",Computer Science
+16,Photosynthesis overview,"BIOLOGY — Chlorophyll in chloroplasts captures light energy. Carbon dioxide and water are converted into glucose and oxygen. 6CO2 + 6H2O -> C6H12O6 + 6O2.",Biology;Chemistry
+17,Solving a system by substitution,"ALGEBRA — Solve the equation y = 2x + 1 together with x + y = 10. Substitute the expression for y, solve for x, then substitute back to find y.",Algebra
+18,Cellular respiration,"BIOLOGY — Cells release energy from glucose through cellular respiration. Mitochondria are a key site of aerobic respiration; oxygen is used and carbon dioxide is produced.",Biology;Chemistry
+19,Ionic and covalent bonding,"CHEMISTRY — Ionic bonding involves electron transfer and electrostatic attraction between ions. Covalent bonding involves shared pairs of electrons between atoms.",Chemistry
+20,Function parameters in Python,"COMPUTER SCIENCE — A function groups reusable instructions. Parameters receive values; return sends a result to the caller. def square(n): return n * n.",Computer Science;Algebra
+21,Velocity time graphs,"PHYSICS — The gradient of a velocity-time graph represents acceleration. The area beneath the graph represents displacement. Include units on both axes.",Physics;Algebra
+22,Primary and secondary sources,"HISTORY — A primary source comes from the period being studied; a secondary source interprets or analyses it later. Consider author, purpose, context, and intended audience.",History
+23,Paragraph structure for a persuasive essay,"WRITING — A focused paragraph can present a claim, evidence, and reasoning. Link each paragraph to the thesis and use transitions to guide the reader.",Writing
+24,Noisy terminology scratchpad,"Δx = v₀t + ½at². Units: m, m/s, m/s². Verify assumptions before using the kinematics equation.",Physics;Algebra
+25,Debugging an index error,"COMPUTER SCIENCE — Python lists use zero-based indexing. IndexError often means an index is outside the valid range. Check the loop boundary and the length of the list.",Computer Science
+26,The water cycle and ecosystems,"BIOLOGY — Evaporation, condensation, and precipitation move water through ecosystems. Organisms depend on this cycle; environmental conditions affect habitats.",Biology
+27,Moles and molar mass,"CHEMISTRY — The mole links particle count to amount of substance. Calculate moles using n = m/M, where m is mass and M is molar mass in grams per mole.",Chemistry;Algebra
+28,Interpreting a historical claim,"HISTORY — Compare accounts of an event, corroborate evidence, and distinguish a source's claim from what the evidence supports. Chronology helps establish context.",History;Writing
+29,Very short note,"DNA",Biology
+30,Very short code note,"for i in range(3): print(i)",Computer Science
