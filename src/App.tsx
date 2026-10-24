@@ -338,8 +338,8 @@ export default function App() {
   });
 
   // Note Selection and Active Topic
-  // User Requirement: "இப்ப அல்ஜிப்ரான்னா அந்த அல்ஜிப்ரா டச் பண்ணா மட்டும்தான் மத்த எல்லாமே டிஸ்ப்ளே ஆகணும். எல்லாமே டிஸ்ப்ளே ஆகக்கூடாது."
-  // When no topic is selected yet, we don't dump all 16 notes; notes only display for the selected topic!
+  // Only display notes for the selected subject (e.g. Algebra shows only Algebra notes).
+  // Notes are filtered strictly by active topic.
   const [activeTopic, setActiveTopic] = useState<string | null>("Algebra"); // default to Algebra so user immediately sees topic notes, or can switch topics
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -853,8 +853,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* User Requirement: Topic Selector prominently at the TOP */}
-          {/* "அதை மேல கொடுத்துரு. இப்ப அல்ஜிப்ரா எடுத்தா அல்ஜிப்ரா மட்டும் வரணும். பயாலஜி எடுத்தா பயாலஜி நோட்ஸ் மட்டும்தான் வரணும்." */}
+          {/* Topic Selector prominently at the TOP */}
+          {/* Selecting a subject displays only the notes for that subject */}
           <div className="top-topic-bar-container">
             <div className="top-topic-header">
               <h2>
@@ -1172,8 +1172,8 @@ export default function App() {
             </div>
           )}
 
-          {/* User Requirement: 1-Mark Knowledge Quiz Section at the Bottom */}
-          {/* "கீழ வந்து குவிஸ், குவிஸ்க்கான ஒரு இது வச்சிரு. அது அவங்க நாலெட்ஜ், ஒன் மார்க்ஸ்க்கு அவங்க படிச்ச மாதிரி இருக்கும்." */}
+          {/* 1-Mark Knowledge Quiz Section at the Bottom */}
+          {/* Quick single-mark assessment based on the student's study notes */}
           <div id="quiz-section" className="quiz-container">
             <div className="quiz-header">
               <div className="quiz-title-area">
@@ -1181,7 +1181,7 @@ export default function App() {
                   <Award size={22} />
                 </div>
                 <div className="quiz-header-text">
-                  <h3>1-Mark Knowledge Quiz · சுய மதிப்பீடு தேர்வு</h3>
+                  <h3>1-Mark Knowledge Quiz · Self Assessment</h3>
                   <p>Test your understanding with instant 1-mark single choice questions based on your notes.</p>
                 </div>
               </div>
