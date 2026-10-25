@@ -628,6 +628,121 @@ export default function App() {
     if (event.target) event.target.value = "";
   };
 
+  const handleSingleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = (e.target?.result as string) || "";
+        const fileName = file.name.replace(/\.[^/.]+$/, "");
+
+        // If JSON file
+        if (file.name.endsWith(".json")) {
+          try {
+            const parsed = JSON.parse(content);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              const existingIds = new Set(notes.map(n => n.id));
+              const newItems: Note[] = [];
+              parsed.forEach((item: Partial<Note>, idx: number) => {
+                const id = item.id && !existingIds.has(item.id) ? item.id : `imported-${Date.now()}-${idx}`;
+                newItems.push({
+                  id,
+                  title: item.title || `Note ${idx + 1}`,
+                  body: item.body || "",
+                  date: item.date || new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date()),
+                  tags: Array.isArray(item.tags) ? item.tags : suggestTags(`${item.title}\n${item.body}`),
+                  edited: item.edited ?? false
+                });
+              });
+              setNotes(prev => [...newItems, ...prev]);
+              if (newItems[0]?.tags?.[0]) {
+                setActiveTopic(newItems[0].tags[0]);
+              }
+              setSelectedId(newItems[0]?.id || null);
+              showToast(`Imported ${newItems.length} notes from JSON package!`);
+              return;
+            } else if (parsed && typeof parsed === "object" && (parsed.title || parsed.body)) {
+              const newNote: Note = {
+                id: `uploaded-${Date.now()}`,
+                title: parsed.title || fileName,
+                body: parsed.body || "",
+                date: new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date()),
+                tags: Array.isArray(parsed.tags) ? parsed.tags : suggestTags(`${parsed.title || fileName}\n${parsed.body || ""}`)
+              };
+              setNotes(prev => [newNote, ...prev]);
+              if (newNote.tags.length > 0) setActiveTopic(newNote.tags[0]);
+              setSelectedId(newNote.id);
+              showToast(`Uploaded note "${newNote.title}"!`);
+              return;
+            }
+          } catch {
+            // fallback to text
+          }
+        }
+
+        // For Markdown (.md) or Text (.txt) or CSV
+        let extractedTitle = fileName;
+        let extractedBody = content;
+
+        const firstLineMatch = content.match(/^#\s+(.+)$/m);
+        if (firstLineMatch && firstLineMatch[1]) {
+          extractedTitle = firstLineMatch[1].trim();
+          extractedBody = content.replace(/^#\s+.+$/m, "").trim();
+        }
+
+        const suggested = suggestTags(`${extractedTitle}\n${extractedBody}`);
+        const newNote: Note = {
+          id: `uploaded-${Date.now()}`,
+          title: extractedTitle,
+          body: extractedBody || content,
+          date: new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date()),
+          tags: suggested.length > 0 ? suggested : (activeTopic ? [activeTopic] : ["General"])
+        };
+
+        setNotes(prev => [newNote, ...prev]);
+        if (newNote.tags.length > 0) {
+          setActiveTopic(newNote.tags[0]);
+        }
+        setSelectedId(newNote.id);
+        setIsCreatingNote(false);
+        showToast(`Successfully uploaded note: "${newNote.title}"!`);
+      } catch (err) {
+        console.error("Error reading file:", err);
+        showToast("Could not read uploaded file. Please try a text or markdown file.");
+      }
+    };
+    reader.readAsText(file);
+    if (event.target) event.target.value = "";
+  };
+
+  const handleNewNoteFileAutoFill = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = (e.target?.result as string) || "";
+      const fileName = file.name.replace(/\.[^/.]+$/, "");
+
+      let extractedTitle = fileName;
+      let extractedBody = content;
+
+      const firstLineMatch = content.match(/^#\s+(.+)$/m);
+      if (firstLineMatch && firstLineMatch[1]) {
+        extractedTitle = firstLineMatch[1].trim();
+        extractedBody = content.replace(/^#\s+.+$/m, "").trim();
+      }
+
+      setNewTitle(extractedTitle);
+      setNewBody(extractedBody);
+      showToast(`Loaded content from "${file.name}"!`);
+    };
+    reader.readAsText(file);
+    if (event.target) event.target.value = "";
+  };
+
   const getTopicSymbol = (topicName: string): string => {
     const found = TOPICS.find(t => t.name === topicName);
     return found?.symbol ?? "📌";
@@ -763,6 +878,25 @@ export default function App() {
           <span className="nav-count">{QUIZ_QUESTIONS.length} Qs</span>
         </button>
 
+        {/* Upload Note File Sidebar Option */}
+        <label
+          className="nav-item"
+          style={{ cursor: "pointer", marginBottom: "6px" }}
+          title="Upload a text, markdown, or notes file (.txt, .md, .json)"
+        >
+          <span className="nav-icon" style={{ color: "#15805d" }}>
+            <Upload size={16} />
+          </span>
+          <span style={{ fontWeight: 500 }}>Upload Note File</span>
+          <span className="nav-count" style={{ background: "#eaf8f2", color: "#15805d" }}>+File</span>
+          <input
+            type="file"
+            accept=".txt,.md,.markdown,.json,.csv"
+            onChange={handleSingleFileUpload}
+            style={{ display: "none" }}
+          />
+        </label>
+
         <div className="sidebar-section">
           <div className="workspace-label">TOPICS</div>
           <div id="topic-list" className="topic-list">
@@ -839,6 +973,20 @@ export default function App() {
               <p>Select any subject on top to instantly open its specific study notes.</p>
             </div>
             <div className="page-heading-actions">
+              <label
+                className="secondary-button"
+                style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "6px" }}
+                title="Upload document or study note file (.txt, .md, .json)"
+              >
+                <Upload size={14} style={{ color: "var(--purple)" }} />
+                <span>Upload note file</span>
+                <input
+                  type="file"
+                  accept=".txt,.md,.markdown,.json,.csv"
+                  onChange={handleSingleFileUpload}
+                  style={{ display: "none" }}
+                />
+              </label>
               <button
                 id="new-note-button"
                 className="primary-button"
@@ -1031,6 +1179,25 @@ export default function App() {
                   <div className="new-note-container">
                     <div className="eyebrow">ADD TO YOUR LIBRARY</div>
                     <h2>New note</h2>
+
+                    {/* File Upload Dropzone to auto-fill */}
+                    <div className="file-upload-dropzone">
+                      <Upload size={20} style={{ color: "var(--purple)", flex: "none" }} />
+                      <div>
+                        <strong>Upload file to populate note</strong>
+                        <p>Upload .txt, .md, or .json file to auto-fill title & body</p>
+                      </div>
+                      <label className="secondary-button" style={{ cursor: "pointer", marginLeft: "auto", fontSize: "11px", padding: "6px 12px" }}>
+                        <span>Browse file</span>
+                        <input
+                          type="file"
+                          accept=".txt,.md,.markdown,.json,.csv"
+                          onChange={handleNewNoteFileAutoFill}
+                          style={{ display: "none" }}
+                        />
+                      </label>
+                    </div>
+
                     <form id="new-note-form" className="new-note-form" onSubmit={handleSaveNewNote}>
                       <label htmlFor="new-title">Note title</label>
                       <input
